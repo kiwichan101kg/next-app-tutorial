@@ -64,6 +64,9 @@ export default function RootLayout({
             <Link href={"/todos"}>todos</Link>
             <Link href={"/chemist"}>chemist</Link>
             <Link href={"/recipes"}>recipes</Link>
+            <Link href={"/poem"}>poem</Link>
+            <Link href={"/cup"}>cup</Link>
+            <Link href={"/clock"}>clock</Link>
           </div>
         </div>
       </body>
