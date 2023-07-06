@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Link from "next/link";
+import { linkArr } from "./data";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [count, setCount] = useState(0);
+
   return (
     <html lang="en">
       <body suppressHydrationWarning={true} className={inter.className}>
@@ -58,15 +60,11 @@ export default function RootLayout({
               flexDirection: "column",
             }}
           >
-            <Link href={"/"}>home</Link>
-            <Link href={"/drinks"}>drinks</Link>
-            <Link href={"/packinglist"}>packinglist</Link>
-            <Link href={"/todos"}>todos</Link>
-            <Link href={"/chemist"}>chemist</Link>
-            <Link href={"/recipes"}>recipes</Link>
-            <Link href={"/poem"}>poem</Link>
-            <Link href={"/cup"}>cup</Link>
-            <Link href={"/clock"}>clock</Link>
+            {linkArr.map((link) => (
+              <Link key={link} href={`/${link}`}>
+                {link}
+              </Link>
+            ))}
           </div>
         </div>
       </body>
