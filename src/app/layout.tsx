@@ -3,6 +3,8 @@
 import { useState } from "react";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import Link from "next/link";
+import { linkArr } from "./data";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,13 +19,54 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [count, setCount] = useState(0);
+
   return (
     <html lang="en">
       <body suppressHydrationWarning={true} className={inter.className}>
-        <h2>Header</h2>
-        <button onClick={() => setCount(count + 1)}>+</button>
-        <div>{count}</div>
-        {children}
+        <header
+          style={{
+            width: "100%",
+            height: "80px",
+            backgroundColor: "pink",
+            display: "flex",
+          }}
+        >
+          <h1 style={{ padding: "20px" }}>Header</h1>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <button
+              style={{
+                width: "30px",
+                height: "30px",
+                fontSize: "18px",
+              }}
+              onClick={() => setCount(count + 1)}
+            >
+              +
+            </button>
+            <h1
+              style={{
+                padding: "20px",
+              }}
+            >
+              {count}
+            </h1>
+          </div>
+        </header>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div>{children}</div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            {linkArr.map((link) => (
+              <Link key={link} href={`/${link}`}>
+                {link}
+              </Link>
+            ))}
+          </div>
+        </div>
       </body>
     </html>
   );
