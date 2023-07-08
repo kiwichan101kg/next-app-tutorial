@@ -10,4 +10,6 @@ export const linkArr: string[] = [
   "clock",
   "button",
   "gallery",
+  "form",
+  "checkbox",
 ];
