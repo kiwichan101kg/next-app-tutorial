@@ -12,4 +12,5 @@ export const linkArr: string[] = [
   "gallery",
   "form",
   "checkbox",
+  "movingdot",
 ];
