@@ -15,7 +15,7 @@ export default function MovingDot() {
         }}
         style={{
           position: "relative",
-          width: "100vw",
+          width: "1200px",
           height: "100vh",
         }}
       >
