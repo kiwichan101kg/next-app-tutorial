@@ -1,28 +1,41 @@
-import Link from "next/link";
+"use client";
+import { ChangeEvent, useState } from "react";
 
 type Todo = {
-  title: string;
+  id: number;
+  task: string;
 };
 
-async function getData() {
-  console.log("レンダリング ");
+export default function TodoList() {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [input, setInput] = useState<string>("");
 
-  const res = await fetch("http://localhost:3000/api/todos");
-  console.log("res.json()");
-  return res.json();
-}
+  const handleAdd = () => {
+    if (!input) return;
+    setTodos([...todos, { id: todos.length, task: input }]);
+    setInput("");
+  };
 
-export default async function Home() {
-  const todos: Todo[] = await getData();
-
+  const handleDelete = (id: number) => {
+    const updateTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(updateTodos);
+  };
   return (
     <>
-      <h1>Todos</h1>
-      {todos.map((todo: Todo) => {
-        <div>Todo:{todo.title}</div>;
-      })}
-      <h1>あああああ</h1>
-      <Link href={"page1"}>ページ1へ</Link>
+      <input
+        type="text"
+        onChange={(e) => setInput(e.target.value)}
+        value={input}
+      />
+      <button onClick={handleAdd}>Add</button>
+      <ul>
+        {todos?.map((todo) => (
+          <>
+            <li key={todo.id + todo.task}>{todo.task}</li>
+            <button onClick={() => handleDelete(todo.id)}>delete</button>
+          </>
+        ))}
+      </ul>
     </>
   );
 }
