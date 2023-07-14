@@ -14,4 +14,5 @@ export const linkArr: string[] = [
   "checkbox",
   "movingdot",
   "canvas",
+  "counterlist",
 ];
