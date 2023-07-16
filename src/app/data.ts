@@ -15,4 +15,5 @@ export const linkArr: string[] = [
   "movingdot",
   "canvas",
   "counterlist",
+  "shoppingcart",
 ];

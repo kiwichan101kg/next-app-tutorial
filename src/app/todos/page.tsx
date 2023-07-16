@@ -1,41 +1,22 @@
 "use client";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
+import { Add } from "./Add";
+import { TodoList } from "./TodoList";
+import { useHandle } from "./hook";
 
-type Todo = {
-  id: number;
+export type TodoType = {
+  id: string;
   task: string;
 };
 
-export default function TodoList() {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [input, setInput] = useState<string>("");
+export default function App() {
+  const [todos, setTodos] = useState<TodoType[]>([]);
+  const { handleAdd, handleDelete, handleEdit } = useHandle(todos, setTodos);
 
-  const handleAdd = () => {
-    if (!input) return;
-    setTodos([...todos, { id: todos.length, task: input }]);
-    setInput("");
-  };
-
-  const handleDelete = (id: number) => {
-    const updateTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(updateTodos);
-  };
   return (
     <>
-      <input
-        type="text"
-        onChange={(e) => setInput(e.target.value)}
-        value={input}
-      />
-      <button onClick={handleAdd}>Add</button>
-      <ul>
-        {todos?.map((todo) => (
-          <>
-            <li key={todo.id + todo.task}>{todo.task}</li>
-            <button onClick={() => handleDelete(todo.id)}>delete</button>
-          </>
-        ))}
-      </ul>
+      <Add onAddTodo={handleAdd} />
+      <TodoList todos={todos} onChange={handleEdit} onDelete={handleDelete} />
     </>
   );
 }
