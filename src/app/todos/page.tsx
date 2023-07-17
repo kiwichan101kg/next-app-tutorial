@@ -1,28 +1,37 @@
-import Link from "next/link";
+"use client";
+import { useState } from "react";
+import { Add } from "./Add";
+import { TodoList } from "./TodoList";
+import { useHandle } from "./hook";
 
-type Todo = {
-  title: string;
+/**
+ * todosの状態をAppで管理
+ * ✅Addボタン押下でtodolistを追加できる
+ * ・Addコンポでinput状態を管理
+ * ・addボタン押下時、inputをhandleAddに引数として渡す
+ * →Appでinputを受け取り、todosを更新
+ *
+ * ✅editボタンでliがinputになり、編集できるようになる。editボタンがsaveボタンに変わる
+ * ✅saveボタンでliに代わる
+ * ・edit中かの状態をTodoコンポで管理。edit状態に応じてUI変更
+ * ・編集するたびにtodosを更新する編集中のidとtaskを引数に渡す(todoごとで良い)
+ *
+ * ✅deleteボタンでliが消える
+ * ・Todoコンポから削除されたidをhandleDeleteの引数に渡す
+ */
+export type TodoType = {
+  id: string;
+  task: string;
 };
 
-async function getData() {
-  console.log("レンダリング ");
-
-  const res = await fetch("http://localhost:3000/api/todos");
-  console.log("res.json()");
-  return res.json();
-}
-
-export default async function Home() {
-  const todos: Todo[] = await getData();
+export default function App() {
+  const [todos, setTodos] = useState<TodoType[]>([]);
+  const { handleAdd, handleDelete, handleEdit } = useHandle(todos, setTodos);
 
   return (
     <>
-      <h1>Todos</h1>
-      {todos.map((todo: Todo) => {
-        <div>Todo:{todo.title}</div>;
-      })}
-      <h1>あああああ</h1>
-      <Link href={"page1"}>ページ1へ</Link>
+      <Add onAddTodo={handleAdd} />
+      <TodoList todos={todos} onChange={handleEdit} onDelete={handleDelete} />
     </>
   );
 }

@@ -12,4 +12,8 @@ export const linkArr: string[] = [
   "gallery",
   "form",
   "checkbox",
+  "movingdot",
+  "canvas",
+  "counterlist",
+  "shoppingcart",
 ];
